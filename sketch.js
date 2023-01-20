@@ -1,57 +1,35 @@
+var sea,ship;
+var seaImg,shipImg;
 
-function setup() {
-  createCanvas(windowWidth,windowHeight);
-  background(51);
-  box = createSprite(width/2,height/2,70,70);
-  box.shapeColor = "black"
-  changed = 0
+function preload(){
+  shipImg = loadAnimation("ship-1.png","ship-2.png","ship-1.png","ship-2.png");
+  seaImg = loadImage("sea.png");
 }
 
-function draw() 
-{
-  fill("white")
-  text("Welcome", (width /2) - 30, (height/2) - 90)
-  text("Press the arrow keys to change color of the background", (width /2) - 140, (height/2) - 70)
-  text("Press the box to reset the background color", (width /2) - 115, (height/2) - 50)
+function setup(){
+  createCanvas(400,400);
+  background("blue");
 
+  // Moving background
+  sea=createSprite(400,200);
+  sea.addImage(seaImg);
+  sea.velocityX = -5;
+  sea.scale=0.3;
 
-  if (mousePressedOver(box)){
-    background(51);
-
-  }
   
-  if (keyIsDown(RIGHT_ARROW)) 
-  {
-    background("red");
-
-  }
+  ship = createSprite(130,200,30,30);
+  ship.addAnimation("movingShip",shipImg);
+  ship.scale =0.25;
   
-  if (keyIsDown(LEFT_ARROW)) 
-  {
-    background("blue");
+}
 
+function draw() {
+  background(0);
+  sea.velocityX = -3;
+
+
+  if(sea.x < 0){
+    sea.x = sea.width/8;
   }
- 
-    if (keyIsDown(UP_ARROW)) 
-  {
-    background("yellow");
-
-  }
-
-  if (keyIsDown(DOWN_ARROW)) 
-  {
-    background("green");
-
-  }
-
   drawSprites();
-
-  
-  }
-
-
-  
-
-  
-
-
+}
